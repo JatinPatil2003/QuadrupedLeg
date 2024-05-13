@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<robot name="leg" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find leg_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find leg_description)/urdf/leg.trans" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-7.614430309011421e-06 -1.5675636402963864e-16 0.09198051467597423" rpy="0 0 0"/>
+    <mass value="9.109082687791332"/>
+    <inertia ixx="0.135062" iyy="0.154688" izz="0.052199" ixy="-0.0" iyz="0.0" ixz="1.7e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="link_1">
+  <inertial>
+    <origin xyz="-0.024921658924984068 -0.015078341075019548 -1.887379141862766e-15" rpy="0 0 0"/>
+    <mass value="0.8853653755826697"/>
+    <inertia ixx="0.000481" iyy="0.000236" izz="0.000483" ixy="-1e-06" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.025 -0.0 -0.34" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.025 -0.0 -0.34" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="link_2">
+  <inertial>
+    <origin xyz="-0.039999999999999855 -0.025000000000000126 -0.06928203230275565" rpy="0 0 0"/>
+    <mass value="2.51816537558267"/>
+    <inertia ixx="0.006731" iyy="0.008748" izz="0.002693" ixy="-6e-06" iyz="-1e-05" ixz="-0.003498"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.05 0.055 -0.34" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.05 0.055 -0.34" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="link_3">
+  <inertial>
+    <origin xyz="0.040200358733573444 -0.024972506152453208 -0.06962912841455629" rpy="0 0 0"/>
+    <mass value="2.5227635086829263"/>
+    <inertia ixx="0.006838" iyy="0.008897" izz="0.002717" ixy="3e-06" iyz="-5e-06" ixz="0.003569"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.13 0.105 -0.201436" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.13 0.105 -0.201436" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://leg_description/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute 1" type="revolute">
+  <origin xyz="-0.025 0.0 0.34" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="link_1"/>
+  <axis xyz="-1.0 0.0 0.0"/>
+  <limit upper="0.261799" lower="-0.261799" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 2" type="revolute">
+  <origin xyz="-0.025 -0.055 0.0" rpy="0 0 0"/>
+  <parent link="link_1"/>
+  <child link="link_2"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <limit upper="0.0" lower="-1.047198" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 3" type="revolute">
+  <origin xyz="-0.08 -0.05 -0.138564" rpy="0 0 0"/>
+  <parent link="link_2"/>
+  <child link="link_3"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <limit upper="2.094395" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+</robot>
