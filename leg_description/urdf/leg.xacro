@@ -3,6 +3,11 @@
 
 <xacro:include filename="$(find leg_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find leg_description)/urdf/leg.trans" />
+<xacro:include filename="$(find leg_description)/urdf/leg_ros2_control.xacro" />
+<xacro:include filename="$(find leg_description)/urdf/leg_gazebo.xacro" />
+
+<link name="world"/>
+
 <link name="base_link">
   <inertial>
     <origin xyz="-7.614430309011421e-06 -1.5675636402963864e-16 0.09198051467597423" rpy="0 0 0"/>
@@ -16,13 +21,20 @@
     </geometry>
     <material name="steel_satin"/>
   </visual>
-  <collision>
+  <!-- <collision>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
       <mesh filename="package://leg_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-  </collision>
+  </collision> -->
 </link>
+
+<joint name="virtual_joint" type="fixed">
+  <parent link="world"/>
+  <child link="base_link"/>
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <axis xyz="0 0 0"/>
+</joint>
 
 <link name="link_1">
   <inertial>
@@ -87,7 +99,7 @@
   </collision>
 </link>
 
-<joint name="Revolute 1" type="revolute">
+<joint name="base2link1" type="revolute">
   <origin xyz="-0.025 0.0 0.34" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="link_1"/>
@@ -95,20 +107,20 @@
   <limit upper="0.261799" lower="-0.261799" effort="100" velocity="100"/>
 </joint>
 
-<joint name="Revolute 2" type="revolute">
+<joint name="link12link2" type="revolute">
   <origin xyz="-0.025 -0.055 0.0" rpy="0 0 0"/>
   <parent link="link_1"/>
   <child link="link_2"/>
   <axis xyz="0.0 -1.0 0.0"/>
-  <limit upper="0.0" lower="-1.047198" effort="100" velocity="100"/>
+  <limit upper="0.52359" lower="-0.52359" effort="100" velocity="100"/>
 </joint>
 
-<joint name="Revolute 3" type="revolute">
+<joint name="link22link3" type="revolute">
   <origin xyz="-0.08 -0.05 -0.138564" rpy="0 0 0"/>
   <parent link="link_2"/>
   <child link="link_3"/>
   <axis xyz="0.0 -1.0 0.0"/>
-  <limit upper="2.094395" lower="0.0" effort="100" velocity="100"/>
+  <limit upper="1.0472" lower="-0.52359" effort="100" velocity="100"/>
 </joint>
 
 </robot>
